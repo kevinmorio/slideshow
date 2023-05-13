@@ -17,19 +17,25 @@
         }
 
         .container {
-            display: flex;
-            justify-content: center;
             position: relative;
             width: 100%;
             height: 100%;
+        }
+
+        .slideshow-wrapper {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex ;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
+            background-color: #eee;
         }
 
         .slideshow-img {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
             max-width: 100%;
             max-height: 100%
         }
@@ -57,14 +63,14 @@
 </head>
 <body>
     <div class="wrapper" x-data="{ images: []  }">
-        <input type="file" accept="image/png, image/jpeg" multiple @change="images = $event.target.files">Select images</input>
+        <input type="file" accept="image/png, image/jpeg" multiple @change="images = $event.target.files; console.log(images);">Select images</input>
         <button @click="images = []">Remove All</button>
 
-        <div class="container">
-            <template x-for="(image, index) in images">
-                <img class="slideshow-img" x-data="{ show: true }" x-show="show" x-effect="$el.src = URL.createObjectURL(image); setTimeout(() => { show = false; }, index * 3000 + 3000)" @load="URL.revokeObjectURL($el.src)">
-            </template>
-        </div>
+        <template x-for="(image, index) in images">
+            <div class="slideshow-wrapper" x-data="{ show: true }" x-show="show" @click="show = false; $el.remove()">
+                <img class="slideshow-img" x-effect="$el.src = URL.createObjectURL(image);" @load="URL.revokeObjectURL($el.src)">
+            </div>
+        </template>
     </div>
 </body>
 </html>
