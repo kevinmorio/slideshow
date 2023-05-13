@@ -9,9 +9,11 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
-    <div x-data="{ image: '' }">
-        <input type="file" accept="image/png, image/jpeg" x-model="image" @change="$refs.image.src = URL.createObjectURL($event.target.files[0])">Select images</input>
-        <img x-ref="image" @load="URL.revokeObjectURL($event.target.src)" />
+    <div x-data="{ images: []  }">
+        <input type="file" accept="image/png, image/jpeg" multiple @change="images = $event.target.files">Select images</input>
+        <template x-for="image in images">
+            <img x-init="$el.src = URL.createObjectURL(image)" @load="URL.revokeObjectURL($el.src)" />
+        </template>
     </div>
 </body>
 </html>
