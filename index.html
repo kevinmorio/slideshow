@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slideshow</title>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+    <div x-data="{ image: '' }">
+        <input type="file" accept="image/png, image/jpeg" x-model="image" @change="$refs.image.src = URL.createObjectURL($event.target.files[0])">Select images</input>
+        <img x-ref="image" @load="URL.revokeObjectURL($event.target.src)" />
+    </div>
+</body>
+</html>
