@@ -63,11 +63,11 @@
 </head>
 <body>
     <div class="wrapper" x-data="{ images: []  }">
-        <input type="file" accept="image/png, image/jpeg" multiple @change="images = $event.target.files; console.log(images);">Select images</input>
+        <input type="file" accept="image/png, image/jpeg" multiple @change="images = [...$event.target.files]; console.log(images);">Select images</input>
         <button @click="images = []">Remove All</button>
 
-        <template x-for="(image, index) in images">
-            <div class="slideshow-wrapper" x-data="{ show: true }" x-show="show" @click="show = false; $el.remove()">
+        <template x-for="(image, index) in images" :key="image.name">
+            <div class="slideshow-wrapper" x-data="{ show: true }" x-show="show" @click="show = false; images.splice(index, 1);">
                 <img class="slideshow-img" x-effect="$el.src = URL.createObjectURL(image);" @load="URL.revokeObjectURL($el.src)">
             </div>
         </template>
