@@ -41,19 +41,9 @@
         }
     </style>
     <script>
-        document.addEventListener(
-          "keydown",
-          (e) => {
-            if (e.key === "Enter") {
-              toggleFullScreen();
-            }
-          },
-          false
-        );
-
         function toggleFullScreen() {
           if (!document.fullscreenElement) {
-            document.querySelector(".wrapper").requestFullscreen();
+            document.documentElement.requestFullscreen();
           } else if (document.exitFullscreen) {
             document.exitFullscreen();
           }
@@ -62,7 +52,7 @@
 
 </head>
 <body>
-    <div class="wrapper" x-data="{ images: []  }">
+    <div class="wrapper" x-data="{ images: []  }" @keyup.document.enter="toggleFullScreen()">
         <input type="file" accept="image/png, image/jpeg" multiple @change="images = [...$event.target.files]; console.log(images);">Select images</input>
         <button @click="images = []">Remove All</button>
 
