@@ -53,11 +53,11 @@
 </head>
 <body>
     <div class="wrapper" x-data="{ images: [], showDuration: 4000 }" @keyup.document.enter="toggleFullScreen()">
-        <input type="file" accept="image/png, image/jpeg" multiple @change="images = [...$event.target.files]; console.log(images);">Select images</input>
+        <input type="file" accept="image/png, image/jpeg" multiple @change="images = [...$event.target.files];">Select images</input>
         <button @click="images = []">Remove All</button>
 
         <template x-for="(image, index) in images" :key="image.name">
-            <div class="slideshow-wrapper" x-data="{ show: false }" :style="{ 'z-index': images.length - index }" x-show="show" x-init="setTimeout(() => {show = true; setTimeout(() => show = false, showDuration); setInterval(() => {show = true; setTimeout(() => show = false, showDuration)}, images.length * showDuration)}, index * showDuration)" @click="show = !show;" x-transition.opacity.duration.1000ms>
+            <div class="slideshow-wrapper" x-data="{ show: false }" :style="{ 'z-index': images.length - index }" x-show="show" x-effect="show = true; if (index + 1 != images.length) {setTimeout(() => show = false, (index + 1) * showDuration); setInterval(() => {show = true; setTimeout(() => show = false, (index + 1) * showDuration)}, images.length * showDuration)}" x-transition.opacity.duration.1000ms>
                 <img class="slideshow-img" x-effect="$el.src = URL.createObjectURL(image);" @load="URL.revokeObjectURL($el.src)">
             </div>
         </template>
