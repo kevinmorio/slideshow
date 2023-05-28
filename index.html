@@ -72,7 +72,7 @@
 
 </head>
 <body>
-    <div class="wrapper" x-data="{ images: [], showDuration: 4000 }" @keyup.document.enter="toggleFullScreen()">
+    <div class="wrapper" x-data="{ images: [], showDuration: 4000 }" @keyup.document.enter="toggleFullScreen()" @keyup.document.esc="images = []">
         <input id="images" type="file" accept="image/png, image/jpeg" multiple @change="images = [...$event.target.files];" hidden></input>
         <label for="images" class="select">
             <!-- heroicons | Photo | 24px outline -->
