@@ -81,7 +81,6 @@
             </svg>
             Click to choose pictures and start slideshow
         </label>
-        <button @click="images = []">Remove All</button>
 
         <template x-for="(image, index) in images" :key="image.name">
             <div class="slideshow-wrapper" x-data="{ show: false }" :style="{ 'z-index': images.length - index }" x-show="show" x-effect="show = true; if (index + 1 != images.length) {setTimeout(() => show = false, (index + 1) * showDuration); setInterval(() => {show = true; setTimeout(() => show = false, (index + 1) * showDuration)}, images.length * showDuration)}" x-transition.opacity.duration.1000ms>
